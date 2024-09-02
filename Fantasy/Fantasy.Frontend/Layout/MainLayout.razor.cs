@@ -1,4 +1,4 @@
-﻿using Fantasy.Frontend.Shared.Resources;
+﻿using Fantasy.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 

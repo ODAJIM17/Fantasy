@@ -1,6 +1,6 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
-using Fantasy.Frontend.Repositories;
-using Fantasy.Frontend.Shared.Resources;
+using Fantasy.Frontend.Shared.Repositories;
+using Fantasy.Shared.Resources;
 using Fantasy.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -32,7 +32,7 @@ namespace Fantasy.Frontend.Pages.Countries
                 else
                 {
                     var messageError = await responseHttp.GetErrorMessageAsync();
-                    await SweetAlertService.FireAsync(Localizer["Error"], messageError, SweetAlertIcon.Error);
+                    await SweetAlertService.FireAsync(Localizer["Error"], Localizer[messageError!], SweetAlertIcon.Error);
                 }
             }
             else

@@ -1,17 +1,19 @@
 ﻿@page "/countries"
+@inject IJSRuntime JS
 
 <h4 class="text-muted">@Localizer["Countries"]</h4>
 
 <div class="mb-3">
-    <a class="btn btn-sm btn-primary" href="/countries/create">@Localizer["New"] @Localizer["Country"]</a>
+    <a class="btn btn-sm btn-primary" href="/countries/create"><i class="bi bi-plus-square"></i> @Localizer["New"] @Localizer["Country"]</a>
 </div>
 
 <GenericList MyList="Countries">
     <Body>
-        <table class="table table-striped">
+        <table id="GenericTable" class="table table-striped">
             <thead>
                 <tr>
                     <th>@Localizer["Country"]</th>
+                    <th># @Localizer["Teams"]</th>
                     <th></th>
                 </tr>
             </thead>
@@ -23,8 +25,11 @@
                             @country.Name
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-warning" href="/countries/edit/@country.Id">@Localizer["Edit"]</a>
-                            <button class="btn btn-sm btn-danger" @onclick=@(() => DeleteAsync(country))>@Localizer["Delete"]</button>
+                            @country.TeamsCount
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" href="/countries/edit/@country.Id"><i class="bi bi-pencil-square"></i> @Localizer["Edit"]</a>
+                            <button class="btn btn-sm btn-danger" @onclick=@(() => DeleteAsync(country))><i class="bi bi-trash"></i> @Localizer["Delete"]</button>
                         </td>
                     </tr>
                 }

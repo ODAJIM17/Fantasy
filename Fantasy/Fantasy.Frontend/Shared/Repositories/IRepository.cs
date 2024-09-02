@@ -1,4 +1,4 @@
-﻿namespace Fantasy.Frontend.Repositories
+﻿namespace Fantasy.Frontend.Shared.Repositories
 {
     public interface IRepository
     {

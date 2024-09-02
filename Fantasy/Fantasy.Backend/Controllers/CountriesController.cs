@@ -1,82 +1,46 @@
-﻿using Fantasy.Backend.Data;
+﻿using Fantasy.Backend.UnitOfWorks.Interfaces;
 using Fantasy.Shared.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Fantasy.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountriesController : ControllerBase
+    public class CountriesController : GenericController<Country>
     {
-        private readonly DataContext _context;
+        private readonly ICountriesUnitOfWork _countriesUnitOfWork;
 
-        public CountriesController(DataContext context)
+        public CountriesController(IGenericUnitOfWork<Country> unitOfWork, ICountriesUnitOfWork countriesUnitOfWork) : base(unitOfWork)
         {
-            _context = context;
+            _countriesUnitOfWork = countriesUnitOfWork;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync()
+        public override async Task<IActionResult> GetAsync()
         {
-            var country = await _context.Countries.AsNoTracking().ToListAsync();
-
-            return Ok(country);
+            var response = await _countriesUnitOfWork.GetAsync();
+            if (response.WasSuccess)
+            {
+                return Ok(response.Result);
+            }
+            return BadRequest();
         }
-
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public override async Task<IActionResult> GetAsync(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null) 
-            { 
-                return NotFound();
-            }
-            return Ok(country);
-        }
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> PostAsync(Country country)
-        {
-            _context.Add(country);
-            await _context.SaveChangesAsync();
-            return Ok(country);
-        }
-
-
-
-        [HttpPut]
-        public async Task<IActionResult> PutAsync(Country country)
-        {
-            var currentCountry = await _context.Countries.FindAsync(country.Id);
-            if (currentCountry == null)
+            var response = await _countriesUnitOfWork.GetAsync(id);
+            if (response.WasSuccess)
             {
-                return NotFound();
+                return Ok(response.Result);
             }
-
-            currentCountry.Name = country.Name;
-            _context.Update(currentCountry);
-            await _context.SaveChangesAsync();
-            return NoContent();
+            return NotFound(response.Message);
         }
 
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        [HttpGet("combo")]
+        public async Task<IActionResult> GetComboAsync()
         {
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null)
-            {
-                return NotFound();
-            }
-          
-            _context.Remove(country);
-            await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(await _countriesUnitOfWork.GetComboAsync());
         }
     }
 }

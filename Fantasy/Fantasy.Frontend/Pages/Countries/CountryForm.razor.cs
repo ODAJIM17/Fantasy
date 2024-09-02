@@ -1,5 +1,5 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
-using Fantasy.Frontend.Shared.Resources;
+using Fantasy.Shared.Resources;
 using Fantasy.Shared.Entities;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;

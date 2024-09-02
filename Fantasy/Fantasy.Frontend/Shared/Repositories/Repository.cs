@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-namespace Fantasy.Frontend.Repositories
+namespace Fantasy.Frontend.Shared.Repositories
 {
     public class Repository : IRepository
     {

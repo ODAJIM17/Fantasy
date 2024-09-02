@@ -1,6 +1,6 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
-using Fantasy.Frontend.Repositories;
-using Fantasy.Frontend.Shared.Resources;
+using Fantasy.Frontend.Shared.Repositories;
+using Fantasy.Shared.Resources;
 using Fantasy.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -27,7 +27,7 @@ namespace Fantasy.Frontend.Pages.Countries
             if (responseHppt.Error)
             {
                 var message = await responseHppt.GetErrorMessageAsync();
-                await SweetAlertService.FireAsync(Localizer["Error"], message, SweetAlertIcon.Error);
+                await SweetAlertService.FireAsync(Localizer["Error"], Localizer[message!], SweetAlertIcon.Error);
                 return;
             }
             Countries = responseHppt.Response!;
@@ -60,8 +60,8 @@ namespace Fantasy.Frontend.Pages.Countries
                 }
                 else
                 {
-                    var mensajeError = await responseHttp.GetErrorMessageAsync();
-                    await SweetAlertService.FireAsync(Localizer["Error"], mensajeError, SweetAlertIcon.Error);
+                    var menssageError = await responseHttp.GetErrorMessageAsync();
+                    await SweetAlertService.FireAsync(Localizer["Error"], Localizer[menssageError!], SweetAlertIcon.Error);
                 }
                 return;
             }
@@ -75,7 +75,7 @@ namespace Fantasy.Frontend.Pages.Countries
                 Timer = 3000,
                 ConfirmButtonText = Localizer["Yes"]
             });
-            toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordDeletedOk"]);
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordDeletedOk"]);
         }
     }
 }

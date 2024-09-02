@@ -1,9 +1,9 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
-using Fantasy.Frontend.Repositories;
-using Fantasy.Frontend.Shared.Resources;
+using Fantasy.Shared.Resources;
 using Fantasy.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Fantasy.Frontend.Shared.Repositories;
 
 namespace Fantasy.Frontend.Pages.Countries
 {
@@ -23,7 +23,7 @@ namespace Fantasy.Frontend.Pages.Countries
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
-                await SweetAlertService.FireAsync(Localizer["Error"], message);
+                await SweetAlertService.FireAsync(Localizer["Error"], Localizer[message!]);
                 return;
             }
 
