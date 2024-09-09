@@ -184,4 +184,10 @@
   <data name="Team" xml:space="preserve">
     <value>Equipo</value>
   </data>
+  <data name="ERR004" xml:space="preserve">
+    <value>El codigo del pais no es valido</value>
+  </data>
+  <data name="ERR005" xml:space="preserve">
+    <value>El codigo del equipo no es valido</value>
+  </data>
 </root>
