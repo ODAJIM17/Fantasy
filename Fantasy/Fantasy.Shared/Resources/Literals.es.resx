@@ -190,4 +190,16 @@
   <data name="ERR005" xml:space="preserve">
     <value>El codigo del equipo no es valido</value>
   </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Equipos</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Seleccione un archivo...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="SelectACountry" xml:space="preserve">
+    <value>Seleccionne un pais...</value>
+  </data>
 </root>

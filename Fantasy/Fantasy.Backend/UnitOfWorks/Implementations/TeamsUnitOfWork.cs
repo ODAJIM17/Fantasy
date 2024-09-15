@@ -25,4 +25,8 @@ public class TeamsUnitOfWork : GenericUnitOfWork<Team>, ITeamsUnitOfWork
     public async Task<IEnumerable<Team>> GetComboAsync(int countryId) => await _teamsRepository.GetComboAsync(countryId);
 
     public async Task<ActionResponse<Team>> UpdateAsync(TeamDTO teamDTO) => await _teamsRepository.UpdateAsync(teamDTO);
+
+    public override async Task<ActionResponse<IEnumerable<Team>>> GetAsync(PaginationDTO pagination) => await _teamsRepository.GetAsync(pagination);
+
+    public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _teamsRepository.GetTotalRecordsAsync(pagination);
 }
