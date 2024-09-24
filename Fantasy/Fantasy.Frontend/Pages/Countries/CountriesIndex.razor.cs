@@ -2,6 +2,7 @@
 using Fantasy.Frontend.Shared.Repositories;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Resources;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
@@ -9,6 +10,7 @@ using System.Net;
 
 namespace Fantasy.Frontend.Pages.Countries
 {
+    [Authorize(Roles = "Admin")]
     public partial class CountriesIndex
     {
         private List<Country>? Countries { get; set; }

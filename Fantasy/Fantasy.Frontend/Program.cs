@@ -1,6 +1,8 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using Fantasy.Frontend;
+using Fantasy.Frontend.AuthenticationProvider;
 using Fantasy.Frontend.Shared.Repositories;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -14,5 +16,7 @@ builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddLocalization();
 builder.Services.AddSweetAlert2();
 builder.Services.AddMudServices();
+builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTest>();
 
 await builder.Build().RunAsync();

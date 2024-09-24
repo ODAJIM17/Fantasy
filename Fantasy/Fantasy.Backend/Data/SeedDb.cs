@@ -1,5 +1,7 @@
 ﻿using Fantasy.Backend.Helpers;
+using Fantasy.Backend.UnitOfWorks.Interfaces;
 using Fantasy.Shared.Entities;
+using Fantasy.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fantasy.Backend.Data
@@ -8,11 +10,13 @@ namespace Fantasy.Backend.Data
     {
         private readonly DataContext _context;
         private readonly IFileStorage _fileStorage;
+        private readonly IUsersUnitOfWork _usersUnitOfWork;
 
-        public SeedDb(DataContext context, IFileStorage fileStorage)
+        public SeedDb(DataContext context, IFileStorage fileStorage, IUsersUnitOfWork usersUnitOfWork)
         {
             _context = context;
             _fileStorage = fileStorage;
+            _usersUnitOfWork = usersUnitOfWork;
         }
 
         public async Task SeedAsync()
@@ -20,6 +24,36 @@ namespace Fantasy.Backend.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckCountriesAsync();
             await CheckTeamsAsync();
+            await CheckRolesAsync();
+            await CheckUserAsync("Jimmy", "Davila", "jimmy@yopmail.com", "786 367 0527", UserType.Admin);
+        }
+
+        private async Task CheckRolesAsync()
+        {
+            await _usersUnitOfWork.CheckRoleAsync(UserType.Admin.ToString());
+            await _usersUnitOfWork.CheckRoleAsync(UserType.User.ToString());
+        }
+
+        private async Task<User> CheckUserAsync(string firstName, string lastName, string email, string phone, UserType userType)
+        {
+            var user = await _usersUnitOfWork.GetUserAsync(email);
+            if (user == null)
+            {
+                var country = await _context.Countries.FirstOrDefaultAsync(x => x.Name == "Ecuador");
+                user = new User
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    UserName = email,
+                    PhoneNumber = phone,
+                    Country = country!,
+                    UserType = userType,
+                };
+                await _usersUnitOfWork.AddUserAsync(user, "123456");
+                await _usersUnitOfWork.AddUserToRoleAsync(user, userType.ToString());
+            }
+            return user;
         }
 
         private async Task CheckCountriesAsync()
