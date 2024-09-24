@@ -1,6 +1,5 @@
 ﻿@page "/teams"
 
-<h3>@Localizer["Teams"]</h3>
 
 @if (loading)
 {
@@ -37,7 +36,7 @@ else
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
             <MudTd>
-                <MudImage Src="@context.ImageFull" Width="90" Height="60" />
+                <MudImage Src="@context.ImageFull" Width="80" Height="60" />
             </MudTd>
             <MudTd>@context.Country!.Name</MudTd>
             <MudTd>
