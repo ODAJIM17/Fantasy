@@ -129,6 +129,7 @@ namespace Fantasy.Backend.Controllers
             };
         }
 
+        [HttpPost]
         public async Task<ActionResponse<string>> SendConfirmationEmailAsync(User user, string language)
         {
             var myToken = await _usersUnitOfWork.GenerateEmailConfirmationTokenAsync(user);
