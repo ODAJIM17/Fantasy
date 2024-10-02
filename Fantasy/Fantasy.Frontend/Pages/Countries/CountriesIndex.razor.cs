@@ -48,7 +48,7 @@ namespace Fantasy.Frontend.Pages.Countries
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
-                Snackbar.Add(Localizer[message], Severity.Error);
+                Snackbar.Add(Localizer[message!], Severity.Error);
                 return;
             }
 
@@ -141,7 +141,7 @@ namespace Fantasy.Frontend.Pages.Countries
                 else
                 {
                     var message = await responseHttp.GetErrorMessageAsync();
-                    Snackbar.Add(Localizer[message], Severity.Error);
+                    Snackbar.Add(Localizer[message!], Severity.Error);
                 }
                 return;
             }

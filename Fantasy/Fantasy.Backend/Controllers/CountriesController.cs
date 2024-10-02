@@ -41,12 +41,6 @@ namespace Fantasy.Backend.Controllers
             return NotFound(response.Message);
         }
 
-        [HttpGet("combo")]
-        public async Task<IActionResult> GetComboAsync()
-        {
-            return Ok(await _countriesUnitOfWork.GetComboAsync());
-        }
-
         [HttpGet("paginated")]
         public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
         {
@@ -67,6 +61,13 @@ namespace Fantasy.Backend.Controllers
                 return Ok(action.Result);
             }
             return BadRequest();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("combo")]
+        public async Task<IActionResult> GetComboAsync()
+        {
+            return Ok(await _countriesUnitOfWork.GetComboAsync());
         }
     }
 }
